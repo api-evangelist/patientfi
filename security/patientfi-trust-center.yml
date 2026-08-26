@@ -1,0 +1,35 @@
+generated: '2026-08-26'
+method: probed
+source: https://trust.patientfi.com/
+present: true
+readable: false
+platform: Thoropass (formerly Laika)
+platform_evidence: https://laika-app-prod.s3.amazonaws.com/static/trust-center/assets/index.js
+certifications: []
+note: >-
+  PatientFi operates a real, dedicated Trust Center at trust.patientfi.com — a provider-controlled
+  subdomain that returns HTTP 200 with <title>Trust Center</title> and loads the Thoropass/Laika
+  trust-center bundle. It is NOT a soft 404 and NOT a parked host; it is a deliberately deployed
+  compliance surface. But the served HTML is 814 bytes of shell: every certification, document and
+  subprocessor is fetched client-side from the Thoropass API after script execution, so a crawler,
+  an agent, or a procurement team's automated vendor review receives ZERO machine-readable
+  compliance signal. No SOC 2, ISO 27001, PCI DSS, HIPAA or FedRAMP string appears anywhere in the
+  response body. Certifications are therefore recorded as an empty list with readable:false, NOT as
+  absent — the distinction matters, and this is the provider's to fix.
+  Consequently no `type: Compliance` pointer is emitted in apis.yml; the `type: TrustCenter`
+  pointer is emitted because the surface demonstrably exists.
+probes:
+- url: https://trust.patientfi.com/
+  status: 200
+  content_type: text/html
+  bytes: 814
+  title: Trust Center
+- url: https://patientfi.com/security/
+  status: 404
+- url: https://patientfi.com/.well-known/security.txt
+  status: 403
+  note: nginx edge blocks the entire /.well-known/ prefix — see well-known/patientfi-well-known.yml
+remedy: >-
+  Server-render the certification list, or publish a machine-readable summary (a JSON document
+  or a /.well-known/ pointer) alongside the SPA, so an automated vendor review can read the
+  posture without executing scripts.

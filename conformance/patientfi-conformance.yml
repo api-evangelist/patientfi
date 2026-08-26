@@ -1,0 +1,91 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  https://patientfi.com/lending-partners, https://patientfi.com/privacy-policy/,
+  https://patientfi.com/disclosures/, https://patientfi.com/privacy-statement-us/,
+  https://trust.patientfi.com/
+note: >-
+  PatientFi publishes no machine-readable contract, so nothing here is derived from a spec —
+  every row below is a claim PatientFi makes in its own public prose, with the URL that
+  carries it. NO API/PROTOCOL STANDARD IS ASSERTED, because none is claimed: there is no
+  OAuth or OIDC surface, no FAPI/FDX/PSD2 posture, no RFC 9457 problem+json, no OpenAPI. The
+  domain-standard slot is deliberately EMPTY — PatientFi's market (US point-of-sale healthcare
+  lending) has no adopted machine-readable interchange standard that PatientFi declares, and
+  the rubric is reward-only, so inventing one is out of bounds. The regulatory rows are real
+  and load-bearing for a buyer, including one explicit NEGATIVE: PatientFi states in its own
+  privacy policy that it is NOT a HIPAA covered entity.
+standards: []
+regulatory:
+- id: nmls-licensure
+  conforms: true
+  evidence:
+    claim: "NMLS ID #1719196"
+    entity: PatientFi, Inc., Irvine, California 92618
+    url: https://patientfi.com/disclosures/
+    note: Published in the site footer on every page; PatientFi is the Program administrator and servicer.
+- id: bank-partner-origination
+  conforms: true
+  evidence:
+    claim: >-
+      "PatientFi is not a bank. PatientFi works with several bank and credit union partners
+      to help connect qualified borrowers to financing. Our current bank partners include
+      Lead Bank and Optum Bank."
+    url: https://patientfi.com/lending-partners
+    note: >-
+      Loans are originated by chartered institutions; PatientFi administers and services.
+      This is the standard US fintech-lending structure and determines which regulator's
+      rules bind the loan itself.
+- id: ccpa-cpra
+  conforms: true
+  evidence:
+    claim: >-
+      "The California Consumer Privacy Act, as amended by the California Privacy Rights Act
+      of 2020 ('CCPA'), requires that we provide California residents with a privacy policy..."
+    url: https://patientfi.com/privacy-policy/
+    request_surface: https://patientfi.com/ccpa/
+    note: A live CCPA privacy-request form is published, plus a "Do Not Sell My Info" footer link.
+- id: glba
+  conforms: partial
+  evidence:
+    claim: >-
+      The privacy policy carves out information "covered by a specific federal privacy law,
+      such as the Gramm-Leach-Bliley Act, the Health Insurance Portability and Accountability
+      Act, or the Fair Credit Reporting Act" from its CCPA disclosures.
+    url: https://patientfi.com/privacy-policy/
+    note: >-
+      GLBA is named as applicable to some data PatientFi holds, but no separate GLBA privacy
+      notice is published at a public URL. Recorded as partial rather than asserted.
+- id: fcra
+  conforms: partial
+  evidence:
+    claim: Fair Credit Reporting Act named in the same federal-privacy-law carve-out.
+    url: https://patientfi.com/privacy-policy/
+    note: >-
+      Consistent with the documented flow — applications are credit-decisioned and a Denied
+      application triggers "a formal notice explaining" the decision emailed within 24 hours,
+      which is adverse-action-notice shaped. PatientFi does not name ECOA/Reg B or TILA/Reg Z
+      explicitly anywhere public, so neither is asserted here.
+    adverse_action_evidence: https://provider.patientfi.com/hc/en-us/articles/50861743875987-Patient-Application-Status
+- id: hipaa
+  conforms: false
+  evidence:
+    claim: >-
+      "NOTE REGARDING HIPAA AND PHI: PatientFi is not directly regulated as a covered entity
+      by the Health Insurance Portability and Accountability Act... information that you
+      provide to PatientFi may not be protected by the HIPAA privacy rules and regulations.
+      This Privacy Policy is not intended for compliance with HIPAA."
+    url: https://patientfi.com/privacy-policy/
+    note: >-
+      An explicit provider-published NEGATIVE. Recorded because it is the single most
+      consequential compliance fact for a healthcare practice evaluating an integration:
+      PatientFi disclaims covered-entity status despite operating inside clinical workflows.
+security_certifications:
+  published: unknown
+  trust_center: https://trust.patientfi.com/
+  note: >-
+    A dedicated Trust Center is deployed at trust.patientfi.com (HTTP 200, title "Trust
+    Center", served by the Thoropass/Laika compliance platform), but the page is an 814-byte
+    client-rendered shell — no SOC 2, ISO 27001, PCI DSS or HIPAA claim appears in any bytes
+    a crawler or agent receives. Certifications may well be listed after script execution;
+    none could be read. NO `type: Compliance` pointer is emitted, because no certification
+    was verified.

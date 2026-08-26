@@ -1,0 +1,81 @@
+generated: '2026-08-26'
+method: searched
+source: https://patientfi.com/lending-partners
+plan_count: 2
+note: >-
+  TWO CONSUMER LOAN PRODUCTS ARE PUBLISHED WITH REAL RATES AND TERMS; NO API OR PLATFORM
+  PRICING IS PUBLISHED AT ALL. PatientFi's public "rates and terms" surface is the Lending
+  Partners page, which names the bank partners, states the APR range, and gives worked
+  repayment examples — that is the pricing this artifact captures. What is NOT published is
+  the other half of the economics: the practice-side processing fee, and any pricing for API
+  or enterprise integration. PatientFi's own provider help center says the practice fee
+  structure "is established during the underwriting process when your practice first enrolls
+  as a PatientFi partner", and there is no /pricing/ page in the site's page sitemap.
+pricing_model: consumer-lending + negotiated-merchant-fee
+publishes_public_pricing: true
+publishes_api_pricing: false
+currency: USD
+plans:
+- name: Fixed Rate Plan
+  type: installment-loan
+  billing_period: monthly
+  apr_min: 6.99
+  apr_max: 32.99
+  apr_note: >-
+    "the 6.99% APR assumes excellent credit and enrollment in monthly autopay. Actual APR
+    may be higher for approved applicants. Subject to credit approval."
+  terms_months_documented: [12, 84]
+  max_amount: 60000
+  max_amount_note: >-
+    llms.txt states approvals up to $60,000; the /enterprise/ page states up to $50K. Both
+    figures are published by PatientFi and are recorded without reconciliation.
+  examples:
+  - amount: 1000
+    term_months: 12
+    monthly_payment_range: "86.52 - 98.96"
+    total_cost_range: "1038.24 - 1187.57"
+  - amount: 10000
+    term_months: 84
+    monthly_payment_range: "150.88 - 306.31"
+    total_cost_range: "12673.92 - 25729.67"
+  prepayment_penalty: none
+  prepayment_evidence: https://provider.patientfi.com/hc/en-us/articles/50863382309779-Pre-payment-Penalties
+  source: https://patientfi.com/lending-partners
+- name: Promo Plan (No Interest Promotion)
+  type: deferred-interest-promotional-loan
+  billing_period: monthly
+  promotional_periods_months: [3, 6, 9, 12, 18, 24]
+  terms: >-
+    "you pay no interest if the loan is paid off in full during the Promotional Period. The
+    Promotional Period begins when your Provider is funded. Interest is charged during the
+    Promotional Period, but will be waived if the purchase balance is paid in full before the
+    end of the Promotional Period. Making minimum monthly payments will not pay off the entire
+    purchase balance before the end of the Promotional Period."
+  availability: >-
+    "Not all Promotional Plans may be offered by your Provider and are subject to approval."
+    A practice admin selects which terms to offer under Administration > Loan Settings.
+  source: https://patientfi.com/lending-partners
+  evidence:
+  - https://provider.patientfi.com/hc/en-us/articles/52342243272595-No-Interest-Promotion-Plans
+  - https://provider.patientfi.com/hc/en-us/articles/50865193680531-Promo-Interest-Calculation
+lending_partners:
+- name: Lead Bank
+- name: Optum Bank
+lending_partner_note: >-
+  "PatientFi is not a bank. PatientFi works with several bank and credit union partners to
+  help connect qualified borrowers to financing... PatientFi, Inc. is the Program administrator
+  and provides servicing for the PatientFi Program loans on behalf of participating financial
+  institutions."
+not_published:
+- item: Provider processing fee
+  set_by: PatientFi underwriting at practice enrollment; varies per practice and per loan term
+  evidence: https://provider.patientfi.com/hc/en-us/articles/50824532987283-Provider-Fees
+  visible_where: >-
+    Administration > Loan Settings in the authenticated provider portal shows the min/max
+    amount and the processing fee per term — never publicly.
+- item: Autopay APR reduction amount
+  evidence: https://provider.patientfi.com/hc/en-us/articles/50864528539411-Autopay-APR-Reduction
+- item: API / integration pricing
+  note: >-
+    The /enterprise/ page's only cost statement is "Custom builds? No problem—included at no
+    cost." There is no developer plan, no metered API pricing and no self-serve API tier.

@@ -1,0 +1,48 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  registry.npmjs.org search + package metadata, pypi.org, api.github.com/orgs/PatientFi,
+  and the PatientFi corporate site
+sdk_count: 0
+note: >-
+  PATIENTFI PUBLISHES NO CLIENT SDK. Searched npm (including the @patientfi scope), PyPI,
+  and the PatientFi GitHub organization. Exactly one first-party package exists anywhere:
+  @patientfi/sails-mongo, which is a scoped republish of the Waterline/Sails.js MongoDB
+  ORM adapter — an internal server-side database dependency, NOT a client library for any
+  PatientFi API. It is recorded here because it is genuinely first-party and because its
+  currency is the finding: version 0.12.4 was published 2021-07-21 and has never been
+  updated, and the backing repo github.com/PatientFi/sails-mongo was last pushed the same
+  day. The PatientFi GitHub organization (created 2021-07-20) has exactly one public repo,
+  which is that fork. Because no official client library exists, NO `type: SDKs` pointer is
+  emitted in apis.yml — the sdk_count checks must not fire on an ORM adapter.
+packages:
+- language: javascript
+  registry: npm
+  name: "@patientfi/sails-mongo"
+  url: https://www.npmjs.com/package/@patientfi/sails-mongo
+  install: npm install @patientfi/sails-mongo
+  official: true
+  client_sdk: false
+  version: 0.12.4
+  published: '2021-07-21'
+  description: Mongo DB adapter for Sails.js
+  repository: https://github.com/PatientFi/sails-mongo
+  note: >-
+    Scoped republish of the community sails-mongo Waterline adapter. Only one version has
+    ever been published (0.12.4). Not an API client — it does not talk to any PatientFi API.
+registries_probed:
+- registry: npm
+  query: patientfi
+  result: 1 package (@patientfi/sails-mongo)
+- registry: pypi
+  query: patientfi
+  result: 404 — no package
+- registry: github
+  query: orgs/PatientFi/repos
+  result: 1 public repo (sails-mongo), last pushed 2021-07-21
+- registry: pkg.go.dev
+  query: patientfi
+  result: not probed — no Go surface referenced anywhere in PatientFi material
+- registry: rubygems
+  query: patientfi
+  result: not probed — no Ruby surface referenced anywhere in PatientFi material

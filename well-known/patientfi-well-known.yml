@@ -1,0 +1,76 @@
+generated: '2026-08-26'
+method: probed
+source: live probes of every PatientFi host reachable from apis.yml and the corporate site
+hit_count: 0
+notes: >-
+  Probed the standard /.well-known/ discovery surface on both PatientFi hosts that answer.
+  NOTHING WAS SERVED — no security.txt, no OIDC/OAuth discovery, no api-catalog, no
+  ai-plugin.json, no agent card. Two different negative shapes were observed and both are
+  recorded honestly. patientfi.com (WordPress behind an nginx edge) returns a blanket
+  HTTP 403 "403 Forbidden" nginx page of exactly 555 bytes for EVERY /.well-known/* path,
+  including a control path that cannot exist — so the 403s are an edge policy on the whole
+  /.well-known/ prefix, not per-document evidence. app.patientfi.com (the provider/patient
+  portal SPA behind an AWS ALB) returns genuine HTTP 404s whose body length varies with the
+  requested path, i.e. a real not-found handler rather than a catch-all. Because no path
+  returned a 200 carrying a real document, NO WellKnown and NO SecurityTxt pointer is
+  emitted in apis.yml — this file records an absence, and an absence must not be scored
+  as a presence. Note that PatientFi DOES serve /llms.txt at the site root (200, saved to
+  llms/patientfi-llms.txt); that is not a /.well-known/ document and is pointed at separately.
+hosts:
+- host: https://patientfi.com
+  edge: nginx / WordPress
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/agent.json
+    status: 403
+  soft_404_control:
+    path: /.well-known/zzz-nonexistent-probe-9182
+    status: 403
+    bytes: 555
+    note: >-
+      Identical 403 body and byte count to every probed path — the edge blocks the entire
+      /.well-known/ prefix, so no 403 above can be read as evidence about a specific document.
+- host: https://app.patientfi.com
+  edge: AWS Application Load Balancer / Node SPA
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  soft_404_control:
+    path: /.well-known/zzz-nonexistent-probe-9182
+    status: 404
+    bytes: 177
+    note: >-
+      Real 404 handler — body length tracks the echoed path, so these are true negatives,
+      not a single-page-app catch-all answering 200 for everything.
+non_well_known_hits:
+- path: /llms.txt
+  host: https://patientfi.com
+  status: 200
+  file: ../llms/patientfi-llms.txt

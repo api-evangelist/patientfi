@@ -1,0 +1,21 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  patientfi.com (full page sitemap walk), patientfi.com/enterprise/,
+  provider.patientfi.com help center (56 public articles via the Zendesk Help Center API)
+limit_count: 0
+rate_limits: []
+note: >-
+  NO PUBLISHED RATE LIMITS, because there is no published API reference to carry them.
+  PatientFi markets "open APIs" on its enterprise page but ships no developer portal, no
+  API reference and no machine-readable specification; developer.patientfi.com,
+  docs.patientfi.com and api.patientfi.com do not resolve in DNS. Every one of the 56
+  public help-center articles is written for practice staff using the provider portal UI,
+  not for integrators. Consequently no request quota, no window, no burst allowance, no
+  X-RateLimit-*/RateLimit-* response headers and no exhaustion status code are documented
+  anywhere a member of the public can reach. This is an honest zero: limits may well be
+  enforced on the partner API, but nothing about them is published. No `type: RateLimits`
+  pointer is emitted in apis.yml, because the pointer would assert a published runtime
+  signal that does not exist.
+response_headers_documented: false
+exhaustion_status_documented: false

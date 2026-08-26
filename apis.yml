@@ -1,23 +1,122 @@
 aid: patientfi
 name: PatientFi
-description: 'PatientFi is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  PatientFi is an Irvine, California patient-financing company that lets healthcare practices offer
+  patients pay-over-time plans for elective and medical procedures — aesthetics and plastic surgery,
+  medspa, cosmetic dental, fertility, audiology and hair restoration. Practices enroll as partnered
+  providers, send patients an application link by SMS or from their own website, and issue a
+  "transaction" against an approved patient spending limit; the practice is funded within one to
+  three business days while the patient repays a bank-originated loan. Approvals reach $60,000
+  across the full credit spectrum through a waterfall of bank and credit-union lending partners.
+  PatientFi markets "open APIs" for enterprise practice-management integrations and ships native
+  in-workflow integrations with Nextech, PatientNow and ModMed plus redirect integrations with
+  Symplast and Aesthetic Record, but publishes no public developer portal, API reference or
+  machine-readable specification — API access is arranged through an enterprise partnership.
 url: https://raw.githubusercontent.com/api-evangelist/patientfi/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
-specificationVersion: '0.20'
+x-tier: profiled
+x-tier-reason: enrichment
+specificationVersion: '0.23'
 created: '2026-08-26'
 modified: '2026-08-26'
+image: https://patientfi.com/wp-content/uploads/2022/01/PatientFi-Primary-Logo-Laguna-1@2x.png
 tags:
-- Company
-apis: []
+- Healthcare Financing
+- Patient Financing
+- Consumer Lending
+- Point of Sale Financing
+- Buy Now Pay Later
+- Fintech
+- Payments
+- Embedded Finance
+- Aesthetics
+- Plastic Surgery
+- Medspa
+- Cosmetic Dental
+- Fertility
+- Audiology
+- Practice Management
+tags_raw:
+- healthcare-financing
+- patient-financing
+- consumer-lending
+- point-of-sale-financing
+- buy-now-pay-later
+- fintech
+- payments
+- embedded-finance
+- aesthetics
+- plastic-surgery
+- medspa
+- cosmetic-dental
+- fertility
+- audiology
+- practice-management
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-08-26'
+  status: minimal
+  artifacts_added: 8
+  pass: local-v1
+x-coverage:
+  state: gated
+  reason: sales-gate
+  detail: >-
+    PatientFi advertises "open APIs" on patientfi.com/enterprise/ and ships native in-workflow
+    integrations with Nextech, PatientNow and ModMed, but no developer surface is published at
+    all — developer.patientfi.com, docs.patientfi.com and api.patientfi.com do not exist in DNS,
+    there is no /pricing/ or /developers/ page in the site sitemap, and the only route to the
+    API is the "Book a Demo" enterprise partnership form.
+  evidence:
+    - url: https://patientfi.com/enterprise/
+      status: 200
+    - url: https://developer.patientfi.com/
+      status: 0
+    - url: https://docs.patientfi.com/
+      status: 0
+    - url: https://api.patientfi.com/
+      status: 0
+    - url: https://patientfi.com/book-a-demo/
+      status: 200
+  checked: '2026-08-26'
+apis: []
 common:
+- type: DomainSecurity
+  url: security/patientfi-domain-security.yml
 - type: Website
-  url: https://www.nasdaqprivatemarket.com/
+  url: https://patientfi.com/
+- type: Blog
+  url: https://blog.patientfi.com/
+- type: Support
+  url: https://provider.patientfi.com/hc/en-us
+- type: HelpCenter
+  url: https://provider.patientfi.com/hc/en-us
+- type: Login
+  url: https://app.patientfi.com/v2/admin/login
+- type: SignUp
+  url: https://patientfi.com/book-a-demo/
+- type: TermsOfService
+  url: https://patientfi.com/terms-of-use/
+- type: PrivacyPolicy
+  url: https://patientfi.com/privacy-policy/
+- type: GitHubOrganization
+  url: https://github.com/PatientFi
+- type: TrustCenter
+  url: https://trust.patientfi.com/
+- type: Integrations
+  url: https://patientfi.com/partners/
+- type: LLMsTxt
+  url: llms/patientfi-llms.txt
+- type: Packages
+  url: packages/patientfi-packages.yml
+- type: Plans
+  url: plans/patientfi-plans-pricing.yml
+- type: Pricing
+  url: https://patientfi.com/lending-partners
+- type: Conformance
+  url: conformance/patientfi-conformance.yml
