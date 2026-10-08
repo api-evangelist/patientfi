@@ -79,3 +79,21 @@ not_published:
   note: >-
     The /enterprise/ page's only cost statement is "Custom builds? No problem—included at no
     cost." There is no developer plan, no metered API pricing and no self-serve API tier.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models: []
+  units: []
+  plans:
+  - name: Fixed Rate Plan
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Promo Plan (No Interest Promotion)
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
